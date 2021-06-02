@@ -12,6 +12,9 @@ export default createStore({
   mutations: {
     AUTH_SUCCESS (state, payload) {
       state.token = payload
+    },
+    LOGOUT (state) {
+      state.token = ''
     }
   },
   actions: {
@@ -25,6 +28,23 @@ export default createStore({
             cookies.set('token', token)
             api.defaults.headers.common.Authorization = token
             commit('AUTH_SUCCESS', token)
+            resolve(response)
+          })
+          .catch((error) => {
+            // Обратботка ошибки
+            reject(error)
+          })
+      })
+    },
+    logout ({ commit }) {
+      return new Promise((resolve, reject) => {
+        // Пример отправления запроса на авторизацию
+        api.post('/logout')
+          .then((response) => {
+            // Обработка успешного запроса
+            cookies.remove('token')
+            delete api.defaults.headers.common.Authorization
+            commit('LOGOUT')
             resolve(response)
           })
           .catch((error) => {

@@ -32,7 +32,6 @@ export default {
           this.$router.push('/')
         })
         .catch((error) => {
-          console.log(true)
           // Заглушка на авторизацию
           if (error.response.status === 404) {
             if (this.user.email === 'gora@studio.ru' && this.user.password === '2021') {
@@ -54,54 +53,44 @@ export default {
 }
 </script>
 
-<style lang="scss">
-body {
+<style scoped lang="scss">
+.login {
   width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  #app {
-    width: 100%;
-    height: 100%;
-    .login {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      &-warning {
-        color: red;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &-warning {
+    color: red;
+  }
+  &-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    h1 {
+      margin: 0 auto 8px;
+    }
+    button {
+      margin-top: 8px;
+      height: 30px;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background-color: #2196f3;
       }
-      &-form {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        h1 {
-          margin: 0 auto 8px;
-        }
-        button {
-          margin-top: 8px;
-          height: 30px;
-          background-color: #1e88e5;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          &:hover {
-            background-color: #2196f3;
-          }
-        }
-        input{
-          padding: 0 8px;
-          width: 250px;
-          height: 30px;
-          border: 1.5px solid #CCCCCC;
-          border-radius: 4px;
-          &:focus-visible, &:focus {
-            outline-color: #1e88e5;
-          }
-        }
+    }
+    input{
+      padding: 0 8px;
+      width: 250px;
+      height: 30px;
+      border: 1.5px solid #CCCCCC;
+      border-radius: 4px;
+      &:focus-visible, &:focus {
+        outline-color: #1e88e5;
       }
     }
   }
