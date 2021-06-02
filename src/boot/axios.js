@@ -1,7 +1,7 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import axios from 'axios'
 
-Vue.prototype.$axios = axios
+// Vue.prototype.$axios = axios
 // Установим фейковый api для примера запроса
 const API_URL = 'http://localhost:8080/api/'
 

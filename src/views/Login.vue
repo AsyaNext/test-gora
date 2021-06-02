@@ -8,18 +8,49 @@
       <input required v-model="user.password" type="password" placeholder="Password"/>
       <button type="submit">Войти</button>
     </form>
+    <span v-if="isWarning" class="login-warning">Невозможно выполнить вход!</span>
   </div>
 </template>
 
 <script>
+import cookies from 'vue-cookies'
+import api from '../boot/axios'
+
 export default {
   name: 'Login',
   data: () => ({
+    isWarning: false,
     user: {
       email: '',
       password: ''
     }
-  })
+  }),
+  methods: {
+    login () {
+      this.$store.dispatch('login', this.user)
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          console.log(true)
+          // Заглушка на авторизацию
+          if (error.response.status === 404) {
+            if (this.user.email === 'gora@studio.ru' && this.user.password === '2021') {
+              this.isWarning = false
+              const token = 'example1234access8765token'
+              cookies.set('token', token)
+              api.defaults.headers.common.Authorization = token
+              this.$store.commit('AUTH_SUCCESS', token)
+              this.$router.push('/')
+            } else {
+              this.isWarning = true
+            }
+          } else {
+            this.isWarning = true
+          }
+        })
+    }
+  }
 }
 </script>
 
@@ -39,6 +70,9 @@ body {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      &-warning {
+        color: red;
+      }
       &-form {
         display: flex;
         flex-direction: column;

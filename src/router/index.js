@@ -28,7 +28,11 @@ router.beforeEach((to, from, next) => {
     }
     router.push('/login')
   } else {
-    next()
+    if (to.name === 'login' && store.getters.isLogin) {
+      router.push('/')
+    } else {
+      next()
+    }
   }
 })
 
